@@ -1,0 +1,145 @@
+<h1>Listing pairs</h1>
+<h2>dragging couples, checking no duplicate dancer IDs</h2>
+
+<!--vertival padding needed for ul/ol to allow dragging to empty-->
+<style>
+    #pair { list-style-type: none; margin: 0; padding: 0; width: 50%; }
+    #pair ul { margin: 10px; padding: 10px 10px; }
+    #heatBin { list-style-type: none; margin: 0; padding: 0; width: 50%; }
+    #heatBin ul { margin: 10px; padding: 10px 10px; }
+</style>
+
+<script>
+
+  // puts the dancer12_ids into array so repetition can be checked
+  // takes ol/ul id name:
+  // "bin1list" or "bin2list"
+  function binToArr(listName) {
+    var arr = [];
+    var b = document.getElementById(listName);
+    var bc = b.children;
+    var BC = $(bc);
+    for (var i=0; i<BC.length; ++i) { 
+      var I = $(BC[i]); 
+      var elem1 = I.find("span").data("dancer1_id");
+      var elem2 = I.find("span").data("dancer2_id");
+      var elemNumb1 = parseInt(elem1);
+      var elemNumb2 = parseInt(elem2);
+      arr.push(elemNumb1);
+      arr.push(elemNumb2);
+    }
+    return arr;
+  }
+
+  // checking arrays for duplicate values
+  function duplicateCheck (arr) {
+    for (var i=0; i<arr.length; ++i) {
+      for (var j=i+1; j<arr.length; ++j) {
+        if (arr[i] === arr[j]) {
+          return true;
+        }
+      }
+    }
+  return false;
+  }
+
+  // scoping for JQuery
+  $(function() {
+    // the couples to drag around
+    $( "#heatBin ul, #pair ul" ).sortable( {
+      connectWith: ".connectedLists",
+      stop: function( event, ui ) {
+        if (duplicateCheck(binToArr("bin1list"))) {
+          $(this).sortable("cancel");
+          alert("duplicate dancer ID!")
+          }
+      },
+      //dropOnEmpty: true,                              // default
+      // forces bin to keep padding even if empty?
+      //forcePlaceholderSize: true,
+      // distance for drag to begin: higher for clumsier users
+      distance: 8,
+      }).disableSelection();
+
+    // submit buttons
+    $( "#button1" )
+      .button()
+      .click(function( event ) {
+        alert(duplicateCheck(binToArr("bin1list")));
+        event.preventDefault();
+      });
+
+    $( "#button2" )
+      .button()
+      .click(function( event ) {
+        alert(duplicateCheck(binToArr("bin2list")));
+        event.preventDefault();
+      });
+
+  });
+</script>
+
+<div>
+  <button id="button2">submit heat 2</button>
+  <button id="button1">submit heat 1</button>
+</div>
+
+<div id="pair">
+  <h2 class="ui-widget-header">pairs list</h2>
+  <div class="ui-widget-content">
+    <ul class="connectedLists">
+      <% @pairs.each do |pair| %>
+        <li><span data-dancer1_id="<%= pair.dancer1_id %>" data-dancer2_id="<%= pair.dancer2_id %>"></span><%= pair.dancer1_id %> | <%= pair.dancer2_id%></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div id="heatBin">
+  <h2 class="ui-widget-header">HEAT 1</h2>
+  <div class="ui-widget-content">
+    <ul id="bin1list" class="connectedLists">
+    </ul>
+  </div>
+</div>
+
+<div id="heatBin">
+  <h2 class="ui-widget-header">HEAT 2</h2>
+  <div class="ui-widget-content">
+    <ul id="bin2list" class="connectedLists">
+    </ul>
+  </div>
+</div>
+
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Dancer1</th>
+      <th>Dancer2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pairs.each do |pair| %>
+      <tr>
+        <td><%= pair.dancer1_id %></td>
+        <td><%= pair.dancer2_id %></td>
+        <td><%= link_to 'Show', pair %></td>
+        <td><%= link_to 'Edit', edit_pair_path(pair) %></td>
+        <td><%= link_to 'Destroy', pair, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<br>
+
+<%= link_to 'New Pair', new_pair_path %>
