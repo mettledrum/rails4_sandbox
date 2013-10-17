@@ -1,0 +1,33 @@
+<h1>Listing team_heats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Heat</th>
+      <th>Judge</th>
+      <th>Score</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @team_heats.each do |team_heat| %>
+      <tr>
+        <td><%= team_heat.team_id %></td>
+        <td><%= team_heat.heat_id %></td>
+        <td><%= team_heat.judge_id %></td>
+        <td><%= team_heat.score %></td>
+        <td><%= link_to 'Show', team_heat %></td>
+        <td><%= link_to 'Edit', edit_team_heat_path(team_heat) %></td>
+        <td><%= link_to 'Destroy', team_heat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Team heat', new_team_heat_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @team_heat.team_id %>
+</p>
+
+<p>
+  <strong>Heat:</strong>
+  <%= @team_heat.heat_id %>
+</p>
+
+<p>
+  <strong>Judge:</strong>
+  <%= @team_heat.judge_id %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @team_heat.score %>
+</p>
+
+<%= link_to 'Edit', edit_team_heat_path(@team_heat) %> |
+<%= link_to 'Back', team_heats_path %>

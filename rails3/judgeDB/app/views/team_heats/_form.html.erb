@@ -1,0 +1,33 @@
+<%= form_for(@team_heat) do |f| %>
+  <% if @team_heat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team_heat.errors.count, "error") %> prohibited this team_heat from being saved:</h2>
+
+      <ul>
+      <% @team_heat.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :team_id %><br>
+    <%= f.number_field :team_id %>
+  </div>
+  <div class="field">
+    <%= f.label :heat_id %><br>
+    <%= f.number_field :heat_id %>
+  </div>
+  <div class="field">
+    <%= f.label :judge_id %><br>
+    <%= f.number_field :judge_id %>
+  </div>
+  <div class="field">
+    <%= f.label :score %><br>
+    <%= f.number_field :score %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

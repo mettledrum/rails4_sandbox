@@ -1,0 +1,27 @@
+<h1>Listing heats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @heats.each do |heat| %>
+      <tr>
+        <td><%= heat.level %></td>
+        <td><%= link_to 'Show', heat %></td>
+        <td><%= link_to 'Edit', edit_heat_path(heat) %></td>
+        <td><%= link_to 'Destroy', heat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Heat', new_heat_path %>

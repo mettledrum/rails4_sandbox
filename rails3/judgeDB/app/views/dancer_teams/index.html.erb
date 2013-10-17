@@ -1,0 +1,29 @@
+<h1>Listing dancer_teams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Dancer</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dancer_teams.each do |dancer_team| %>
+      <tr>
+        <td><%= dancer_team.team_id %></td>
+        <td><%= dancer_team.dancer_id %></td>
+        <td><%= link_to 'Show', dancer_team %></td>
+        <td><%= link_to 'Edit', edit_dancer_team_path(dancer_team) %></td>
+        <td><%= link_to 'Destroy', dancer_team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dancer team', new_dancer_team_path %>
