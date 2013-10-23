@@ -5,6 +5,9 @@ class TeamHeatsController < ApplicationController
   # GET /team_heats.json
   def index
     @team_heats = TeamHeat.all
+
+    # NOTE: used to find given_number in display
+    @teams = Team.all
   end
 
   # GET /team_heats/1
