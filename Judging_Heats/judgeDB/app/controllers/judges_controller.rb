@@ -5,6 +5,9 @@ class JudgesController < ApplicationController
   # GET /judges.json
   def index
     @judges = Judge.all
+
+    # get the other important info to page
+    @dancers = Dancer.all
   end
 
   # GET /judges/1

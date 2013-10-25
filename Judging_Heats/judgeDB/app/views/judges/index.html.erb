@@ -26,25 +26,23 @@
 
 <button id="test1"> tester </button>
 
-
-
 <%= link_to 'New Judge', new_judge_path %>
 
-
-
 <script>
-//use .erb to specify the urls to go through to change with .post
 
-//puts the new values to the url
+//using .erb to specify the urls to go through to change with .post
+<% @dancers.each do |dancer| %>
+//puts the new values to the urls
 $('#test1').click(function() {
-  $.ajax({
+  $.ajax( {
     type: "PUT",
-    url: "dancers/2.json",
+    url: "dancers/" + <%= dancer.id %> + ".json",
     data: {dancer: { name: "sugar daddy II" }},
-    success: showThis("post ajax judge change"),
+    success: showThis("after ajax dancer change"),
     dataType: "json"
   });  
 })
+<% end %>
 
 // get a judge and put the info into a ul
 // shortcut .ajax() function
