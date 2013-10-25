@@ -12,8 +12,8 @@
 
   <tbody>
     <% @judges.each do |judge| %>
-      <tr>
-        <td><%= judge.name %></td>
+      <tr id="judge-rows">
+        <td data-id=<%= judge.id %>><%= judge.name %></td>
         <td><%= link_to 'Show', judge %></td>
         <td><%= link_to 'Edit', edit_judge_path(judge) %></td>
         <td><%= link_to 'Destroy', judge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -24,4 +24,46 @@
 
 <br>
 
+<button id="test1"> tester </button>
+
+
+
 <%= link_to 'New Judge', new_judge_path %>
+
+
+
+<script>
+//use .erb to specify the urls to go through to change with .post
+
+//puts the new values to the url
+$('#test1').click(function() {
+  $.ajax({
+    type: "PUT",
+    url: "dancers/2.json",
+    data: {dancer: { name: "sugar daddy II" }},
+    success: showThis("post ajax judge change"),
+    dataType: "json"
+  });  
+})
+
+// get a judge and put the info into a ul
+// shortcut .ajax() function
+$.getJSON( "judges/1.json", function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  }); 
+ 
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );
+  showThis("posted JSON");
+});
+
+//debugging display
+function showThis(showMe) {
+  console.log("got to: " + showMe);
+}
+    
+</script>
