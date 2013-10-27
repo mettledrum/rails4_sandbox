@@ -25,3 +25,35 @@
 <br>
 
 <%= link_to 'New Heat', new_heat_path %>
+
+<br>
+<br>
+
+<div id="add-heat-form" >
+  <form>
+    <label for="name">Heat Level</label>
+    <input id="heat-level" type="text" name="level"/>
+    <br/>
+
+    <input type="submit" value="Add Heat"/>
+  </form>
+</div>
+
+<script>
+// NOTE: testing post ajax()... works on /heats.json
+$('#add-heat-form').submit(function(evt) {
+  $.ajax('/heats.json', {
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      heat: {
+        level:  $('#heat-level').val(),
+      },
+    },
+    // don't know if this works
+    success: function(data) {
+      console.log("yay");
+    },
+  });
+});
+</script>

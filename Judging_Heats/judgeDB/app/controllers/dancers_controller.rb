@@ -7,8 +7,6 @@ class DancersController < ApplicationController
     # ransack searching
     @q = Dancer.search(params[:q])
     @dancers = @q.result(:distinct => true)
-
-    #@dancers = Dancer.all
   end
 
   # GET /dancers/1
