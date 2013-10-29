@@ -4,7 +4,17 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
+    # NOTE: distinct on
+    # ransack searching, distinct so only one shows up
+    # there could be multiple rows for a team in a heat
+    # if multiple judges score them
+    @q = Team.search(params[:q])
+    @teams_in_heat = @q.result(:distinct => true)
+
+    # teams in heat
+    # JQuery "search" shows members searched for with ajax
     @teams = Team.all
+    @heats = Heat.all
   end
 
   # GET /teams/1

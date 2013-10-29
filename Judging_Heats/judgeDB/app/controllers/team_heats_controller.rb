@@ -4,10 +4,12 @@ class TeamHeatsController < ApplicationController
   # GET /team_heats
   # GET /team_heats.json
   def index
-    @team_heats = TeamHeat.all
-
-    # NOTE: used to find given_number in display
+    # NOTE: for Team search given_number
     @teams = Team.all
+
+    # ransack searching for team_heats
+    @q = TeamHeat.search(params[:q])
+    @team_heats = @q.result()
   end
 
   # GET /team_heats/1

@@ -1,37 +1,139 @@
 <h1>Listing teams</h1>
-<h2>and other info using .map(&:column)</h2>
+<h2>pull up all dancers, drag into heats</h2>
+
+<!-- Ransack and button are battling
+<h3> all teams ransack:</h3>
+
+<%= search_form_for @q, remote: true do |f| %>
+  <div class="field">
+    <%= f.label :given_number_eq, "Given number is" %>
+    <%= f.text_field :given_number_eq %>
+  </div>
+  <div class="field">
+    <%= f.label :heats_id_eq, "Heat id is" %>
+    <%= f.text_field :heats_id_eq %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
 
 <table>
   <thead>
     <tr>
-      <th>Given number</th>
-      <th>Team members' names</th>
-      <th>Judges' names</th>
-      <th>Heats team is in</th>            
-      <th>Team's scores</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th><%= sort_link(@q, :given_number, "Given number") %></th>
+    </tr>
+  </thead>
 
+  <tbody>
+    <% @teams_in_heat.each do |team| %>
+      <tr>
+        <td><%= team.given_number %></td>
+        <td><%= link_to 'Show', team %></td>
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+        <td><%= link_to 'X', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+-->
+
+<br>
+
+<%= link_to 'New Team', new_team_path %>
+
+<br>
+<br>
+
+<h3>teams, search, drag from me</h3>
+
+<table id="teams-list">
+  <thead>
+    <tr>
+      <th>given number</th>
+      <th>dancers on team</th>
     </tr>
   </thead>
 
   <tbody>
     <% @teams.each do |team| %>
-      <tr>
-        <td><%= team.given_number %></td>
-        <td><%= team.dancers.map(&:name) %></td> 
-        <td><%= team.judges.map(&:name) %></td>
-        <td><%= team.heats.map(&:id) %></td>         
-        <td><%= team.team_heats.map(&:score) %></td>         
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="hidden">
+        <td data-given-number="<%= team.given_number %>"><%= team.given_number %></td>
+        <td data-dancers-names="<%= team.dancers.map(&:name) %>"><%= team.dancers.map(&:name) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<div id="unhide-teams" >
+  <form>
+    <label for="name">given #</label>
+    <input id="team-button-number" type="integer" name="given #"/>
+    <br/>
+
+    <input type="button" value="Show Team"/>
+  </form>
+</div>
+
+<br>
 <br>
 
-<%= link_to 'New Team', new_team_path %>
+<h3>heats, search, drag to me</h3>
+
+<!--TODO: turn into div space for dragging-->
+
+<div id="heat-bins">
+  <% @heats.each do |heat| %>
+    <div id="heat-bin-<%= heat.id %>" data-heat-id="<%= heat.id %>" class="hidden">
+      <h3 class="ui-widget-header">Heat id: <%= heat.id %></h3>
+      <div class="ui-widget-content">
+        <ul data-heat-id="<%= heat.id %>" id="heat-bin-<%= heat.id %>-list" class="connectedLists">
+          <% heat.teams.each do |team| %>
+            <li data-team-number="<%= team.given_number %>"><%= team.given_number %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div id="unhide-heats" >
+  <form>
+    <label for="name">heat id</label>
+    <input id="heat-button-number" type="integer" name="heat id"/>
+    <br/>
+
+    <input type="button" value="Show Heat"/>
+  </form>
+</div>
+
+<script>
+
+// change heat <li> from hidden if given number matches search
+var heat_elems = $( '#heat-bins div' )
+$( '#unhide-heats' ).click(function( evt ) {
+  $.each(heat_elems, function (i, v) {
+    parseInt($(v).data( "heatId" )) === parseInt($( "#heat-button-number" ).val()) ? 
+      $(v).parent().removeClass( "hidden" ) : 
+      console.log( "no" )
+  });
+});
+
+// change team <tr> from hidden if given number matches search
+var team_elems = $( '#teams-list td' )
+$( '#unhide-teams' ).click(function( evt ) {
+  $.each(team_elems, function (i, v) {
+    parseInt($(v).data( "givenNumber" )) === parseInt($( "#team-button-number" ).val()) ? 
+      $(v).parent().removeClass( "hidden" ) : 
+      console.log( "no" )
+  });
+});
+
+// TODO: prevent submit when return is pressed
+// TODO: scope js correctly
+// TODO: put in assets folder
+// TODO: allow way of showing all
+
+
+
+
+
+</script>
