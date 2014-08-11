@@ -3,9 +3,9 @@
 <table>
   <thead>
     <tr>
+      <th>Posting</th>
       <th>User</th>
       <th>Content</th>
-      <th>Title</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,12 +15,12 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
+        <td><%= comment.posting_id %></td>
         <td><%= comment.user_id %></td>
         <td><%= comment.content %></td>
-        <td><%= comment.title %></td>
         <td><%= link_to 'Show', admin_comment_path(comment) %></td>
-        <td><%= link_to 'Edit', edit_admincomment_path(comment) %></td>
-        <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_admin_comment_path(comment) %></td>
+        <td><%= link_to 'Destroy', [:admin, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Comment', new_user_comment_path %>
+<%= link_to 'New Comment', new_admin_comment_path %>

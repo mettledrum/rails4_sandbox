@@ -3,6 +3,7 @@ SimpleRouting::Application.routes.draw do
   # can CRUD everything
   namespace :admin do
     resources :users
+    resources :postings
     resources :comments
   end
 
@@ -10,8 +11,9 @@ SimpleRouting::Application.routes.draw do
   # get '/frontpage' => 'posts#index'
 
   resources :users do
-    # only their comments are visible
-    resources :comments
+    resources :postings do
+      resources :comments
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

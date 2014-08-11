@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.number_area :user_id %>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :posting_id %><br>
+    <%= f.number_field :posting_id %>
   </div>
   <div class="field">
     <%= f.label :content %><br>
     <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
   </div>
   <div class="actions">
     <%= f.submit %>
