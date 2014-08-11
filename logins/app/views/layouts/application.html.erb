@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logins</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% flash.each do |name, msg| -%>
+	<%= content_tag :div, msg, class: name %>
+<% end -%>
+
+<%= link_to_if session[:user] && session[:user][:id], "Logout", logout_path, method: :delete %> |
+<%= link_to_if !session[:user], "Login", login_path %>
+
+<%= yield %>
+
+</body>
+</html>
