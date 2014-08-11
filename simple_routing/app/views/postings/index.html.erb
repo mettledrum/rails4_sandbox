@@ -1,4 +1,4 @@
-<h1>Listing postings</h1>
+<h1>Your postings</h1>
 
 <table>
   <thead>
@@ -13,14 +13,14 @@
   </thead>
 
   <tbody>
-    <% @postings.each do |posting| %>
+    <% @user.postings.each do |posting| %>
       <tr>
         <td><%= posting.title %></td>
         <td><%= posting.content %></td>
         <td><%= posting.user_id %></td>
-        <td><%= link_to 'Show', posting %></td>
-        <td><%= link_to 'Edit', edit_posting_path(posting) %></td>
-        <td><%= link_to 'Destroy', posting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [@user, posting] %></td>
+        <td><%= link_to 'Edit', edit_user_posting_path(@user, posting) %></td>
+        <td><%= link_to 'Destroy', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Posting', new_posting_path %>
+<%= link_to 'New Posting', new_user_posting_path(@user) %>

@@ -5,7 +5,6 @@
     <tr>
       <th>User</th>
       <th>Content</th>
-      <th>Title</th>
       <th></th>
       <th></th>
       <th></th>
@@ -17,7 +16,6 @@
       <tr>
         <td><%= comment.user_id %></td>
         <td><%= comment.content %></td>
-        <td><%= comment.title %></td>
         <td><%= link_to 'Show', user_comment_path(@user, comment) %></td>
         <td><%= link_to 'Edit', edit_user_comment_path(@user, comment) %></td>
         <td><%= link_to 'Destroy', [@user, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>

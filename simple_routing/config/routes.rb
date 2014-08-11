@@ -11,9 +11,8 @@ SimpleRouting::Application.routes.draw do
   # get '/frontpage' => 'posts#index'
 
   resources :users do
-    resources :postings do
-      resources :comments
-    end
+    resources :postings
+    resources :comments
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

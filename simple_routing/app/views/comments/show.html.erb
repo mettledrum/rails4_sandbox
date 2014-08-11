@@ -10,10 +10,5 @@
   <%= @comment.content %>
 </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @comment.title %>
-</p>
-
 <%= link_to 'Edit', edit_user_comment_path(@user, @comment) %> |
 <%= link_to 'Back', user_comments_path(@user) %>
