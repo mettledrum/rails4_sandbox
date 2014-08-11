@@ -1,22 +1,20 @@
 class SessionsController < ApplicationController
 	def create
 		# security variables
-		fail_max = 2
+		fail_max = 3
 		timeout = 1.minutes
 
 		@user = User.find_by_email(user_params[:email].downcase)
 
 		# locked out for a bit
-		if session[:login_fail_count] && session[:login_fail_count] > fail_max && session[:last_fail_time]+timeout > Time.now
+		if session[:login_fail_count] && session[:login_fail_count] >= fail_max && session[:last_fail_time] && session[:last_fail_time]+timeout > Time.now
 			flash[:error] = 'Temporarily locked out due to password fails.'
-			redirect_to login_path
 		# must authenticate through email loop
-		elsif @user && !@user.authenticated
+		elsif @user && !@user.authenticated && @user.password_digest == user_params[:password_digest]
 			flash[:error] = 'Please confirm your account via the e-mail you received upon registering.'
-			redirect_to login_path
 		# successful
 		elsif @user && @user.password_digest == user_params[:password_digest]
-			session[:user] = {id: @user.id}
+			session[:user] = {id: @user.id}		# store user info into session
 			flash[:notice] = 'Logged in successfully.'
 			# reset foul play info in session
 			session[:login_fail_count] = 0
@@ -26,9 +24,9 @@ class SessionsController < ApplicationController
 			flash[:error] = 'Incorrect login info.'
 			# record mistakes for possible foul play
 			session[:last_fail_time] = Time.now
-			session[:login_fail_count] ? session[:login_fail_count] = session[:login_fail_count]+1 : session[:login_fail_count] = 0
-			redirect_to login_path
+			session[:login_fail_count] ? session[:login_fail_count] = session[:login_fail_count]+1 : session[:login_fail_count] = 1
 		end
+		redirect_to login_path
 	end
 
 	def new
