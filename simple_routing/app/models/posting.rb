@@ -1,6 +1,6 @@
 class Posting < ActiveRecord::Base
 	belongs_to :user
-	has_many :postings
+	has_many :comments
 
 	validates_presence_of :user
 end

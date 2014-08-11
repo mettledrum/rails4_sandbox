@@ -3,9 +3,11 @@
 <table>
   <thead>
     <tr>
+      <th>User</th>
       <th>Title</th>
       <th>Content</th>
-      <th>User</th>
+      <th>Comments</th>
+      <th>Commenter</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,13 +17,28 @@
   <tbody>
     <% @user.postings.each do |posting| %>
       <tr>
+        <td><%= posting.user_id %></td>
         <td><%= posting.title %></td>
         <td><%= posting.content %></td>
-        <td><%= posting.user_id %></td>
+        <td></td>
+        <td></td>
         <td><%= link_to 'Show', [@user, posting] %></td>
         <td><%= link_to 'Edit', edit_user_posting_path(@user, posting) %></td>
         <td><%= link_to 'Destroy', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% posting.comments.each do |comment| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <%= comment.content %>
+          </td>
+          <td>
+            <%= comment.user.name %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
