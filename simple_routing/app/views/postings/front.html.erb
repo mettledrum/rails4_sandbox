@@ -1,0 +1,47 @@
+<h1>Front Page</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Poster ID</th>
+      <th>Poster Name</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Comments</th>
+      <th>Commenter Name</th>
+      <th>LEAVE COMMENT</th>
+      <th>UPVOTE!</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @postings.each do |posting| %>
+      <tr>
+        <td><%= posting.user_id %></td>
+        <td><%= posting.user.name %></td>
+        <td><%= posting.title %></td>
+        <td><%= posting.content %></td>
+        <td></td>
+        <td></td>
+        <td>COMMENT_LINK</td>
+        <td>UPVOTE_POSTING_LINK</td>
+      </tr>
+      <% posting.comments.each do |comment| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <%= comment.content %>
+          </td>
+          <td>
+            <%= comment.user.name %>
+          </td>
+          <td></td>
+          <td>UPVOTE_COMMENT_LINK</td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

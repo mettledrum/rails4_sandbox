@@ -7,14 +7,13 @@ SimpleRouting::Application.routes.draw do
     resources :comments
   end
 
-  # # see all comments and upvote, etc.
-  # get '/frontpage' => 'posts#index'
-
   get 'sign_up' => 'users#new', :as => 'sign_up'
   get 'log_out' => 'sessions#destroy', :as => 'log_out'
   get 'log_in' => 'sessions#new', :as => 'log_in'
 
   resources :sessions
+
+  get 'front_page' => 'postings#front', :as => 'front_page'
 
   resources :users do
     resources :postings

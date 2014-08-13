@@ -1,9 +1,13 @@
 class PostingsController < ApplicationController
   before_action :set_posting, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, except: :front
 
-  def index
+  def front    
     @postings = Posting.all
+  end
+
+  # shows users' postings
+  def index
   end
 
   def show
