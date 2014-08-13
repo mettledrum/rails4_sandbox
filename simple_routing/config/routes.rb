@@ -10,15 +10,21 @@ SimpleRouting::Application.routes.draw do
   # # see all comments and upvote, etc.
   # get '/frontpage' => 'posts#index'
 
+  get 'sign_up' => 'users#new', :as => 'sign_up'
+  get 'log_out' => 'sessions#destroy', :as => 'log_out'
+  get 'log_in' => 'sessions#new', :as => 'log_in'
+
+  resources :sessions
+
   resources :users do
     resources :postings
     resources :comments
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  # See how all your routes lay out with 'rake routes'.
 
-  # You can have the root of your site routed with "root"
+  # You can have the root of your site routed with 'root'
   # root 'welcome#index'
 
   # Example of regular route:
