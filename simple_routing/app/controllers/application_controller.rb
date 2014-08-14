@@ -15,7 +15,10 @@ class ApplicationController < ActionController::Base
 
   # go to login page unless a user is signed in
   def ensure_user
-    redirect_to log_in_path unless current_user
+    unless current_user
+      flash[:error] = "You must have an account and log in!"
+      redirect_to log_in_path
+    end
   end
 
 end
