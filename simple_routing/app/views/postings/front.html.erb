@@ -1,22 +1,34 @@
-<h1>Front Page</h1>
-
-<div class="well">
+<button type="button" class="btn btn-default">
   <%= link_to 'New Posting', new_user_posting_path(@user) %>
-</div>
+</button>
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    Latest Postings
+    <h1>Front Page</h1>
   </div>
-  <% @postings.each do |posting| %>
-    <div class="panel-body">
-      <p><%= posting.title %></p>
-      <p><%= posting.content %></p>
-      <p><%= posting.user.name %></p>
-    </div>
-  <% end %>
-</div>
+  <div class="panel-body">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Latest Postings</h3>
+      </div>
+        <div class="panel-body">
 
-<button type="button" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-star"></span> Star
-</button>
+        <% @postings.each do |posting| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5><%= posting.title %></h5>
+            </div>
+            <div class="panel-body"><%= posting.content %></div>
+            <div class="panel-footer">
+              by <%= posting.user.name %>
+              <span class="pull-right">vote | reply | etc.</span>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+      <div class="panel-footer"></div>
+    </div> <!-- Latest Postings body -->
+  </div> <!-- Front Page body -->
+</div>
