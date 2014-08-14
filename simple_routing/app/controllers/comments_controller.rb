@@ -18,6 +18,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+
+    # user can't control ID
     @comment.user_id = @user.id
 
     respond_to do |format|
@@ -64,6 +66,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :title, :posting_id, :user_id)
+      params.require(:comment).permit(:content, :posting_id, :user_id, :parent_id)
     end
 end

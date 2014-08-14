@@ -22,6 +22,7 @@ class PostingsController < ApplicationController
 
   def create
     @posting = Posting.new(posting_params)
+
     # user can't control their ID
     @posting.user_id = @user.id
 
