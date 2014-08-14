@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :posting
 	validates_presence_of :content
 	validates_presence_of :user
-  
+
 	validate :cannot_form_a_loop
 	validate :cannot_be_parent_of_self
   validate :child_cannot_belong_to_different_posting

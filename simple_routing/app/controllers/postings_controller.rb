@@ -1,6 +1,6 @@
 class PostingsController < ApplicationController
   before_action :set_posting, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, except: :front
+  before_action :set_user
 
   def front    
     @postings = Posting.all
@@ -65,7 +65,7 @@ class PostingsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:user_id])
+      @user = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
