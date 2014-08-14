@@ -28,17 +28,15 @@ class Comment < ActiveRecord::Base
     }
   end
 
-	# ensure that a comment cannot be its own parent
+  # ensure that a comment cannot be its own parent
   def cannot_be_parent_of_self
-    if id.nil? || parent_id.nil?
-    	errors.add(:parent_id, 'Comment cannot be parent of self.') if parent_id == id
-    	return
-  	end
+    return if id.nil? || parent_id.nil?
+    errors.add(:parent_id, 'Comment cannot be parent of self.') if parent_id == id
   end
 
   # ensure that a comment cannot be its own ancestor
   def cannot_form_a_loop
     ancestors = self.class.find(parent_id).ancestors rescue []
-    errors.add(:parent_id, 'Comment cannot form a loop in tree.') if ancestors.include? self
+    errors.add(:parent_id, 'Comment cannot form a loop.') if ancestors.include? self
   end
 end
