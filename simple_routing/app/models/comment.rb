@@ -4,4 +4,6 @@ class Comment < ActiveRecord::Base
 
 	validates_presence_of :posting
 	validates_presence_of :user
+
+	include Votable
 end

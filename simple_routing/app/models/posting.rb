@@ -3,4 +3,6 @@ class Posting < ActiveRecord::Base
 	has_many :comments
 
 	validates_presence_of :user
+
+	include Votable
 end
