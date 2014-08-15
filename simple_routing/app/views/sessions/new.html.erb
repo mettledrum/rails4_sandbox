@@ -1,20 +1,24 @@
 <div class="pull-left">
-	<div class="panel panel-default">
+	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">Log in</h3>
 		</div>	
 		<div class="panel-body">
+
 			<%= form_tag sessions_path do %>
-			  <p>
-			    <%= label_tag :email %><br />
-			    <%= text_field_tag :email, params[:email] %>
-			  </p>
-			  <p>
-			    <%= label_tag :password %><br />
-			    <%= password_field_tag :password %>
-			  </p>
+				<div class="form-group">
+			    <%= label_tag :email %>
+			    <%= text_field_tag :email, params[:email], class: 'form-control' %>
+			  </div>
+
+				<div class="form-group">
+			    <%= label_tag :password %>
+			    <%= password_field_tag :password, nil, class: 'form-control' %>
+			  </div>
+
 			  <p class="button"><%= submit_tag "Log in" %></p>
 			<% end %>
+
 		</div>
 		<div class="panel-footer"></div>
 	</div>

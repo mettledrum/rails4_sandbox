@@ -26,7 +26,7 @@
       <ul class="nav navbar-nav navbar-right">
 
         <% if current_user %>
-          <li><a href="">Welcome, <%= current_user.email %>.</a></li>
+          <li><a href="">Welcome, <%= current_user.name %>.</a></li>
           <li><%= link_to "Log out", log_out_path %></li>
         <% else %>
           <li><%= link_to "Sign up", sign_up_path %></li>
@@ -38,9 +38,27 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<% flash.each do |name, msg| -%>
-  <%= content_tag :div, msg, class: name %>
-<% end -%>
+<!-- flashes -->
+<% flash.each do |name, msg| %>
+  <div class="container">
+
+    <% if name.to_s == 'error' %>
+      <div class="alert alert-danger alert-dismissable" role="alert">
+    <% elsif name.to_s == 'notice' %>
+      <div class="container"><div class="alert alert-success">
+    <% else %>
+      <div class="container"><div class="alert alert-info">
+    <% end %>
+
+    <%= msg %>
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    </div>
+  </div>
+</div>
+<% end %>
 
 <%= yield %>
 
