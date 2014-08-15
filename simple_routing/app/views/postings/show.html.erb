@@ -1,19 +1,16 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @posting.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @posting.content %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @posting.user_id %>
-</p>
+<div class="panel panel-danger">
+	<div class="panel-heading">
+		<h4><%= @posting.title %></h4>
+	</div>
+	<div class="panel-body">
+  	<%= @posting.content %>
+  	<br></br>
+		<%= render 'comment_forest' %>
+	</div>
+	<div class="panel-footer">
+		posting by <%= @posting.user.name %>
+	</div>
+</div>
 
 <%= link_to 'Edit', edit_user_posting_path(@user, @posting) %> |
 <%= link_to 'Back', user_postings_path(@user) %>

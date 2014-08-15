@@ -10,8 +10,9 @@ class PostingsController < ApplicationController
   def index
   end
 
-  # show the comments too
+  # show the comments forest too
   def show
+    @comments = @posting.forest
   end
 
   def new

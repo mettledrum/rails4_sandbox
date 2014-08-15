@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<%= comment_hash[:comment].content %>
+	</div>
+
+	<% if children = comment_hash[:children] %>
+		<% children.each do |child_hash| %>
+			<%= render 'comment_tree', comment_hash: child_hash %>
+		<% end %>
+	<% end %>
+	<div class="panel-footer">
+		comment by <%= comment_hash[:comment].user.name %>
+	</div>
+</div>
