@@ -10,6 +10,7 @@ class PostingsController < ApplicationController
   def index
   end
 
+  # show the comments too
   def show
   end
 

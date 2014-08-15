@@ -55,3 +55,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 # branding / image uploading
 # gem 'rmagick', :require => 'RMagick'  # require needed for case-sensitivity in Linux
+
+# fake seed data
+gem 'faker'
