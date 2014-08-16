@@ -1,29 +1,27 @@
-<%= form_for [@user, @comment] do |f| %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-
-      <ul>
-      <% @comment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<div class="pull-left">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Reply</h3>
     </div>
-  <% end %>
+    <div class="panel-body">
 
-  <div class="field">
-    <%= f.label :parent_id %><br>
-    <%= f.number_field :parent_id %>
+      <%= form_for [@user, @posting, @comment] do |f| %>
+        <div class="form-group">
+          <%= f.hidden_field :parent_id, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.hidden_field :posting_id, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :content %>
+          <%= f.text_area :content, class: 'form-control' %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="panel-footer"></div>
   </div>
-  <div class="field">
-    <%= f.label :posting_id %><br>
-    <%= f.number_field :posting_id %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

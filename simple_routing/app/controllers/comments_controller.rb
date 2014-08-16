@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_user
+  before_action :set_posting
 
   def index
     @comments = Comment.all
@@ -11,6 +12,11 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
+
+    # user can't control comment parent ID or posting ID,
+    # sent in by link_to 'reply'
+    @comment.parent_id = params[:parent_id]
+    @comment.posting_id = params[:posting_id]
   end
 
   def edit
@@ -19,12 +25,12 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
 
-    # user can't control ID
+    # user can't control user ID
     @comment.user_id = @user.id
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to user_comment_path(@user, @comment), notice: 'Comment was successfully created.' }
+        format.html { redirect_to user_posting_comment_path(@user, @posting, @comment), notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
         format.html { render action: 'new' }
@@ -36,7 +42,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to user_comment_path(@user, @comment), notice: 'Comment was successfully updated.' }
+        format.html { redirect_to user_posting_comment_path(@user, @posting, @comment), notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -48,7 +54,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to user_comments_url(@user) }
+      format.html { redirect_to user_posting_comments_url(@user, @posting) }
       format.json { head :no_content }
     end
   end
@@ -59,9 +65,12 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = current_user
+    end
+
+    def set_posting
+      @posting = Posting.find(params[:posting_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

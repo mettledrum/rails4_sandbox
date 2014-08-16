@@ -16,9 +16,9 @@
       <tr>
         <td><%= comment.user_id %></td>
         <td><%= comment.content %></td>
-        <td><%= link_to 'Show', user_comment_path(@user, comment) %></td>
-        <td><%= link_to 'Edit', edit_user_comment_path(@user, comment) %></td>
-        <td><%= link_to 'Destroy', [@user, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_posting_comment_path(@user, @posting, comment) %></td>
+        <td><%= link_to 'Edit', edit_user_posting_comment_path(@user, @posting, comment) %></td>
+        <td><%= link_to 'Destroy', [@user, @posting, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Comment', new_user_comment_path %>
+<%= link_to 'New Comment', new_user_posting_comment_path %>
