@@ -1,6 +1,6 @@
 class Posting < ActiveRecord::Base
 	belongs_to :user
-	has_many :comments
+	has_many :comments, dependent: :restrict_with_exception
 
 	validates_presence_of :user
 

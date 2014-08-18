@@ -1,11 +1,6 @@
 SimpleRouting::Application.routes.draw do
 
-  # can CRUD everything
-  namespace :admin do
-    resources :users
-    resources :postings
-    resources :comments
-  end
+  root 'postings#preview', :as => 'preview'
 
   get 'sign_up' => 'users#new', :as => 'sign_up'
   get 'log_out' => 'sessions#destroy', :as => 'log_out'
@@ -16,8 +11,9 @@ SimpleRouting::Application.routes.draw do
   get 'front_page' => 'postings#front', :as => 'front_page'
 
   resources :users do
+    resources :comments, only: [:index]
     resources :postings do
-      resources :comments
+      resources :comments, except: [:index]
     end
   end
 

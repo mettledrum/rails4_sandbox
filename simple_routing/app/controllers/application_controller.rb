@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   def ensure_user
     unless current_user
       flash[:error] = "You must have an account and log in!"
-      redirect_to log_in_path
+      redirect_to preview_path
     end
   end
 

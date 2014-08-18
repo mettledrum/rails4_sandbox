@@ -1,13 +1,11 @@
-<h1>Your postings</h1>
+<h1>Your Postings</h1>
 
 <table>
   <thead>
     <tr>
-      <th>User</th>
+      <th>User ID</th>
       <th>Title</th>
       <th>Content</th>
-      <th>Comments</th>
-      <th>Commenter</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,29 +18,10 @@
         <td><%= posting.user_id %></td>
         <td><%= posting.title %></td>
         <td><%= posting.content %></td>
-        <td></td>
-        <td></td>
         <td><%= link_to 'Show', [@user, posting] %></td>
         <td><%= link_to 'Edit', edit_user_posting_path(@user, posting) %></td>
         <td><%= link_to 'Destroy', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      <% posting.comments.each do |comment| %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <%= comment.content %>
-          </td>
-          <td>
-            <%= comment.user.name %>
-          </td>
-        </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Posting', new_user_posting_path(@user) %>

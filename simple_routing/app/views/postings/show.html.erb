@@ -11,13 +11,6 @@
 		<%= render 'comment_forest' %>
 	</div>
 	<div class="panel-footer">
-		posting by <%= @posting.user.name %>
+		by <%= @posting.user.name %>
 	</div>
 </div>
-
-<p>
-	<%= @comments %>
-</p>
-
-<%#= link_to 'Edit', edit_user_posting_path(@user, @posting) %> |
-<%#= link_to 'Back', user_postings_path(@user) %>

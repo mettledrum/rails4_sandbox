@@ -1,0 +1,28 @@
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h3>Latest Postings</h3>
+  </div>
+    <div class="panel-body">
+
+    <% @postings.each do |posting| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= posting.title %>
+
+          <% if current_user %>
+            <span class="pull-right">
+              <%= link_to 'read', user_posting_path(@user, posting) %>
+            </span>
+          <% end %>
+        </div>
+        <div class="panel-body"><%= posting.content %></div>
+        <div class="panel-footer">
+          by <%= posting.user.name %> | <%= posting.created_at.strftime("%d %b. %Y") %>
+          <span class="pull-right">upvote!</span>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="panel-footer"></div>
+</div> <!-- Latest Postings body -->

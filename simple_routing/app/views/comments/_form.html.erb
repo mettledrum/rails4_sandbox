@@ -1,27 +1,23 @@
-<div class="pull-left">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Reply</h3>
-    </div>
-    <div class="panel-body">
+<div class="panel panel-default">
+  <div class="panel-heading"></div>
+  <div class="panel-body">
 
-      <%= form_for [@user, @posting, @comment] do |f| %>
-        <div class="form-group">
-          <%= f.hidden_field :parent_id, class: 'form-control' %>
-        </div>
-        <div class="form-group">
-          <%= f.hidden_field :posting_id, class: 'form-control' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :content %>
-          <%= f.text_area :content, class: 'form-control' %>
-        </div>
-        <div class="actions">
-          <%= f.submit %>
-        </div>
-      <% end %>
+    <%= form_for [@user, @posting, @comment] do |f| %>
+      <div class="form-group">
+        <%= f.hidden_field :parent_id, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.hidden_field :posting_id, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :content %>
+        <%= f.text_area :content, class: 'form-control' %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
 
-    </div>
-    <div class="panel-footer"></div>
   </div>
+  <div class="panel-footer"></div>
 </div>

@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  # allow user to go to log_in or sign_up
   skip_before_filter :ensure_user, :only => [:new, :create]
 
   def new

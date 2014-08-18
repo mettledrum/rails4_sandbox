@@ -10,5 +10,8 @@
   <%= @user.email %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>picture</p>
+
+<%= link_to 'Edit Account', edit_user_path(@user), class: 'btn btn-warning' %>
+<%= link_to 'View Postings', user_postings_path(@user), class: 'btn btn-info' %>
+<%= link_to 'View Comments', user_comments_path(@user), class: 'btn btn-info' %>
