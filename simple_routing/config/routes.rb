@@ -10,6 +10,8 @@ SimpleRouting::Application.routes.draw do
 
   get 'front_page' => 'postings#front', :as => 'front_page'
 
+  resources :votes, only: [:create, :destroy]
+
   resources :users do
     resources :comments, only: [:index]
     resources :postings do

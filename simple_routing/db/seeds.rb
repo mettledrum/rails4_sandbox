@@ -1,6 +1,14 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+# item_types
+[:comment, :posting].each do |name|
+	ItemType.create(name: name)
+end
+
+
+# sample values for testing
+
 # users
 andy = User.create(name: 'Andy', password: 'a', email: 'a')
 barry = User.create(name: 'Barry', password: 'b', email: 'b')

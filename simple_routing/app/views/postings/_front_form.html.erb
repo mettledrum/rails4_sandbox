@@ -18,7 +18,13 @@
         <div class="panel-body"><%= posting.content %></div>
         <div class="panel-footer">
           by <%= posting.user.name %> | <%= posting.created_at.strftime("%d %b. %Y") %>
-          <span class="pull-right">upvote!</span>
+          <span class="pull-right">
+            <% if !posting.votes.map(&:user_id).include? current_user.id %>
+              <%= link_to 'upvote', votes_path(name: 'posting', item_id: posting.id), method: :post %>
+            <% else %>
+              <%= link_to 'cancel vote', vote_path(posting.votes.keep_if { |v| v.user_id == current_user.id }.first), method: :delete %>
+            <% end %>
+          </span>
         </div>
       </div>
 

@@ -20,5 +20,4 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to log_in_path, :notice => "Logged out!"
   end
-
 end
