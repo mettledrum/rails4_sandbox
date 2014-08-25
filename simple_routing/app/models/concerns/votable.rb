@@ -11,4 +11,9 @@ module Votable
 			Vote.where(item_id: self.id, item_type_id: ItemType.where(name: self.class.to_s.downcase))
 		end
 	end
+
+	# pull all points of votes for votable model
+	def vote_score
+		votes.map(&:value).reduce(:+)
+	end
 end

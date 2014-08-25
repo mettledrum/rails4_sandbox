@@ -10,7 +10,12 @@
 		<% end %>
 	</div>
 	<div class="panel-footer">
-		by <%= comment_hash[:comment].user.name %> | <%= comment_hash[:comment].created_at.strftime("%d %b. %Y") %>
+		by <%= comment_hash[:comment].user.name %> | 
+		<%= comment_hash[:comment].created_at.strftime("%d %b. %Y") %> |
+		<!-- color-code score -->
+    <span class="label label-<%= (comment_hash[:comment].vote_score || 0) >= 0 ? 'success' : 'danger' %>">
+      <%= comment_hash[:comment].vote_score || 0 %>
+    </span>
 		<span class="pull-right">
 	    <%= link_to 'reply', new_user_posting_comment_path(@user, @posting, parent_id: comment_hash[:comment].id) %> | 
 	    <% if !comment_hash[:comment].votes.map(&:user_id).include? current_user.id %>

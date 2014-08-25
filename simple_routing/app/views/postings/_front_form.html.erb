@@ -8,7 +8,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <%= posting.title %>
-
+          
           <% if current_user %>
             <span class="pull-right">
               <%= link_to_if current_user, 'read', user_posting_path(@user, posting) %>
@@ -17,7 +17,14 @@
         </div>
         <div class="panel-body"><%= posting.content %></div>
         <div class="panel-footer">
-          by <%= posting.user.name %> | <%= posting.created_at.strftime("%d %b. %Y") %>
+          by <%= posting.user.name %> | 
+          <%= posting.created_at.strftime("%d %b. %Y") %> | 
+          <!-- color-code score -->
+          <span class="label label-<%= (posting.vote_score || 0) >= 0 ? 'success' : 'danger' %>">
+            <%= posting.vote_score || 0 %>
+          </span>
+
+          <!-- voting displays -->
           <span class="pull-right">
             <% if current_user %>
               <% if !posting.votes.map(&:user_id).include? current_user.id %>
