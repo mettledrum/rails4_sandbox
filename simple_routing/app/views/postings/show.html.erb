@@ -8,11 +8,13 @@
 	<div class="panel-body">
   		<%= @posting.content %>
   	<br></br>
+  	<!-- recursive forest of postings and comments -->
 		<%= render 'comment_forest' %>
 	</div>
 	<div class="panel-footer">
 		by <%= @posting.user.name %>
 		<span class="pull-right">
+			<!-- display buttons for voting -->
       <% if current_user %>
         <% if !@posting.votes.map(&:user_id).include? current_user.id %>
           <%= link_to 'up', up_vote_path(name: 'posting', item_id: @posting.id), method: :post %> | 

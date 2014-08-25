@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  append_after_action :set_last_url
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -21,4 +23,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # set the last url that was called as the current path (for later redirects)
+  def set_last_url
+    session[:last_url] = request.fullpath if request.method.casecmp('get') == 0
+  end
+
+  def last_url
+    session[:last_url]
+  end
 end

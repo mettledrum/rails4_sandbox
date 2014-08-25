@@ -15,9 +15,9 @@ class VotesController < ApplicationController
     if @vote.save
       flash[:notice] = "Up-voted."
     else
-      flash[:error] = "Vote not saved."
+      flash[:error] = "Up-vote not saved."
     end
-    redirect_to front_page_path
+    redirect_to last_url
   end
 
   # TODO: make ajax
@@ -33,16 +33,16 @@ class VotesController < ApplicationController
     if @vote.save
       flash[:notice] = "Down-voted."
     else
-      flash[:error] = "Vote not saved."
+      flash[:error] = "Down-vote not saved."
     end
-    redirect_to front_page_path    
+    redirect_to last_url 
   end
 
   # TODO: make ajax
 	def destroy
 		@vote.destroy
     flash[:notice] = "Vote cancelled."
-		redirect_to front_page_path
+    redirect_to last_url
 	end
 
 	private
