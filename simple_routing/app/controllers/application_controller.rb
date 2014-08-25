@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  # remember last GET
   append_after_action :set_last_url
 
   # Prevent CSRF attacks by raising an exception.

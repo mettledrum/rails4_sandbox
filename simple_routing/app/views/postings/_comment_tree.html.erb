@@ -12,7 +12,18 @@
 	<div class="panel-footer">
 		by <%= comment_hash[:comment].user.name %> | <%= comment_hash[:comment].created_at.strftime("%d %b. %Y") %>
 		<span class="pull-right">
-	      <%= link_to 'reply', new_user_posting_comment_path(@user, @posting, parent_id: comment_hash[:comment].id) %>
-	    </span>
+	    <%= link_to 'reply', new_user_posting_comment_path(@user, @posting, parent_id: comment_hash[:comment].id) %> | 
+	    <% if !comment_hash[:comment].votes.map(&:user_id).include? current_user.id %>
+			  <%= link_to 'up', up_vote_path(name: 'comment', item_id: comment_hash[:comment].id), method: :post %> | 
+			  <%= link_to 'down', down_vote_path(name: 'comment', item_id: comment_hash[:comment].id), method: :post %>
+			<% else %>
+			  <% if comment_hash[:comment].votes(current_user).first.value > 0 %>
+			    <span class="glyphicon glyphicon-thumbs-up"></span>
+			  <% else %>
+			    <span class="glyphicon glyphicon-thumbs-down"></span>
+			  <% end %>
+			  <%= link_to 'x', vote_path(comment_hash[:comment].votes(current_user).first.id), method: :delete %>
+			<% end %>
+		</span>
 	</div>
 </div>
