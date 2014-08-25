@@ -12,6 +12,12 @@
           <% if current_user %>
             <span class="pull-right">
               <%= link_to_if current_user, 'read', user_posting_path(@user, posting) %>
+
+              <!-- you can edit and delete posting if it's yours || TODO: admin -->
+              <% if current_user.postings.include? posting %>
+               | <%= link_to 'edit', edit_user_posting_path(@user, posting) %> | 
+              <%= link_to 'delete', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
             </span>
           <% end %>
         </div>
