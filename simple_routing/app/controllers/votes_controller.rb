@@ -1,25 +1,47 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:destroy]
-  before_action :set_user, only: [:create]
+  before_action :set_user, only: [:up_vote, :down_vote]
 
   # TODO: make ajax
-  # TODO: point system
-	def create
+  def up_vote
     # :name is model name vote is attached to thru VariadicItem
-		vote = Vote.create(
+    @vote = Vote.find_or_create_by(
       user_id: @user.id, 
-      value: 1, 
       item_id: params[:item_id], 
       item_type_id: ItemType.find_by_name(params[:name]).id)
-    
-    flash[:notice] = "Upvoted."
-		redirect_to front_page_path
-	end
+
+    @vote.value = 1
+
+    if @vote.save
+      flash[:notice] = "Up-voted."
+    else
+      flash[:error] = "Vote not saved."
+    end
+    redirect_to front_page_path
+  end
+
+  # TODO: make ajax
+  def down_vote
+    # :name is model name vote is attached to thru VariadicItem
+    @vote = Vote.find_or_create_by(
+      user_id: @user.id, 
+      item_id: params[:item_id], 
+      item_type_id: ItemType.find_by_name(params[:name]).id)
+
+    @vote.value = -1
+
+    if @vote.save
+      flash[:notice] = "Down-voted."
+    else
+      flash[:error] = "Vote not saved."
+    end
+    redirect_to front_page_path    
+  end
 
   # TODO: make ajax
 	def destroy
 		@vote.destroy
-    flash[:notice] = "Upvote removed."
+    flash[:notice] = "Vote cancelled."
 		redirect_to front_page_path
 	end
 

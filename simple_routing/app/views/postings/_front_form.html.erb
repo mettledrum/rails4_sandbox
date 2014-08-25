@@ -21,9 +21,15 @@
           <span class="pull-right">
             <% if current_user %>
               <% if !posting.votes.map(&:user_id).include? current_user.id %>
-                <%= link_to 'up vote', votes_path(name: 'posting', item_id: posting.id), method: :post %>
+                <%= link_to 'up', up_vote_path(name: 'posting', item_id: posting.id), method: :post %> | 
+                <%= link_to 'down', down_vote_path(name: 'posting', item_id: posting.id), method: :post %>
               <% else %>
-                <%= link_to 'x vote', vote_path(posting.votes(current_user).first.id), method: :delete %>
+                <% if posting.votes(current_user).first.value > 0 %>
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                <% else %>
+                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                <% end %>
+                <%= link_to 'x', vote_path(posting.votes(current_user).first.id), method: :delete %>
               <% end %>
             <% end %>
           </span>

@@ -48,11 +48,11 @@
     <div class="container">
 
       <% if name.to_s == 'error' %>
-        <div class="alert alert-danger alert-dismissable" role="alert">
+        <div class="alert alert-danger alert-dismissable pull-left" role="alert">
       <% elsif name.to_s == 'notice' %>
-        <div class="container"><div class="alert alert-success">
+        <div class="container"><div class="alert alert-success pull-left">
       <% else %>
-        <div class="container"><div class="alert alert-info">
+        <div class="container"><div class="alert alert-info pull-left">
       <% end %>
 
       <%= msg %>
