@@ -11,7 +11,7 @@
 
           <% if current_user %>
             <span class="pull-right">
-              <%= link_to 'read', user_posting_path(@user, posting) %>
+              <%= link_to_if current_user, 'read', user_posting_path(@user, posting) %>
             </span>
           <% end %>
         </div>
@@ -19,10 +19,12 @@
         <div class="panel-footer">
           by <%= posting.user.name %> | <%= posting.created_at.strftime("%d %b. %Y") %>
           <span class="pull-right">
-            <% if !posting.votes.map(&:user_id).include? current_user.id %>
-              <%= link_to 'up vote', votes_path(name: 'posting', item_id: posting.id), method: :post %>
-            <% else %>
-              <%= link_to 'x vote', vote_path(posting.votes(current_user).first.id), method: :delete %>
+            <% if current_user %>
+              <% if !posting.votes.map(&:user_id).include? current_user.id %>
+                <%= link_to 'up vote', votes_path(name: 'posting', item_id: posting.id), method: :post %>
+              <% else %>
+                <%= link_to 'x vote', vote_path(posting.votes(current_user).first.id), method: :delete %>
+              <% end %>
             <% end %>
           </span>
         </div>

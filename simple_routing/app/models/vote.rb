@@ -9,7 +9,4 @@ class Vote < ActiveRecord::Base
 
 	# attaches models to vote
 	include VariadicItem
-
-	# TODO: validate :can_only_have_one_vote_from_user
-
 end
