@@ -45,17 +45,11 @@ ActiveRecord::Schema.define(version: 20140814061038) do
     t.string   "password_hash"
   end
 
-  create_table "vote_items", force: true do |t|
-    t.integer  "item_type_id"
-    t.integer  "vote_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "item_id"
-  end
-
   create_table "votes", force: true do |t|
     t.integer  "user_id"
     t.integer  "value"
+    t.integer  "item_type_id"
+    t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,13 +4,11 @@ module Votable
 
 	# find the model's votes through vote_item
 	# 'has_many :votes' functionality for models like Comments/Postings
-	def votes
-		VoteItem.where(item_id: self.id, item_type_id: ItemType.where(name: self.class.to_s.downcase)).flat_map(&:vote)
+	def votes(user=nil)
+		if user
+			Vote.where(user_id: user.id, item_id: self.id, item_type_id: ItemType.where(name: self.class.to_s.downcase))
+		else
+			Vote.where(item_id: self.id, item_type_id: ItemType.where(name: self.class.to_s.downcase))
+		end
 	end
-
-	# find model's votes that the current user has made
-	# TODO: validate only one exists per user
-	# def current_user_vote
-	# 	self.votes.keep_if { |v| v.user_id == @current_user.id }.first
-	# end
 end

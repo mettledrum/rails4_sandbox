@@ -3,11 +3,15 @@ class VotesController < ApplicationController
   before_action :set_user, only: [:create]
 
   # TODO: make ajax
+  # TODO: point system
 	def create
-		# all votes are worth 1 point
-		vote = Vote.create(user_id: @user.id, value: 1)
-		# :name is model name vote is attached to thru VariadicItem
-		VoteItem.create(item_type_id: ItemType.find_by_name(params[:name]).id, vote_id: vote.id, item_id: params[:item_id])
+    # :name is model name vote is attached to thru VariadicItem
+		vote = Vote.create(
+      user_id: @user.id, 
+      value: 1, 
+      item_id: params[:item_id], 
+      item_type_id: ItemType.find_by_name(params[:name]).id)
+    
     flash[:notice] = "Upvoted."
 		redirect_to front_page_path
 	end
