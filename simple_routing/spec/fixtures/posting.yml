@@ -1,0 +1,19 @@
+post1:
+	title: title1
+	content: lorem ipsum1
+	user: user1
+
+post2:
+	title: title2
+	content: lorem ipsum2
+	user: user2
+
+post3:
+	title: title3
+	content: lorem ipsum3
+	user: user3
+
+post4:
+	title: title4
+	content: lorem ipsum4
+	user: user1

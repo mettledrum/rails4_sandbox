@@ -1,0 +1,14 @@
+user1:
+	name: Andrew
+	email: andrew@aol.edu
+	password: 1234
+
+user2:
+	name: Susan
+	email: sue69@aol.edu
+	password: 1235
+
+user3:
+	name: Marty
+	email: mstar@star.com
+	password: 1236

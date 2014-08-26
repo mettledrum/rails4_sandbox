@@ -1,0 +1,28 @@
+comm1post1:
+	user: user1
+	posting: post1
+	content: content11
+
+comm1_1post1:
+	user: user2
+	posting: post1
+	parent: comm1post1
+	content: content1_11
+
+
+comm2post2:
+	user: user3
+	posting: post2
+	content: content22
+
+comm2_1post2:
+	user: user2
+	posting: post2
+	parent: comm2post2
+	content: content2_12
+
+comm2_1_1post2:
+	user: user1
+	posting: post2
+	parent: comm2_1post2
+	content: content2_1_12

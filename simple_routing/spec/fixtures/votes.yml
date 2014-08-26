@@ -1,0 +1,17 @@
+upvote1post1:
+	user: user3
+	value: 1
+	item_type: posting
+	item_id: <%= ActiveRecord::FixtureSet.identify(:post1) %>
+
+upvote2post1:
+	user: user2
+	value: 1
+	item_type: posting
+	item_id: <%= ActiveRecord::FixtureSet.identify(:post1) %>
+
+downvote1comm1post1:
+	user: user1
+	value: -1
+	item_type: comment
+	item_id: <%= ActiveRecord::FixtureSet.identify(:comm1post1) %>
