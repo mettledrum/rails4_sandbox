@@ -1,4 +1,4 @@
 == README
 
-This is a basic remake of the functionality found on sites with postings and comments, ect.
+This is a basic remake of the functionality found on sites with postings and comments, etc.
 
