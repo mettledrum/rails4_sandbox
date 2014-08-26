@@ -44,14 +44,14 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# group :development, :test do
-#   gem 'rspec-rails'
-#   gem 'capybara'
-#   gem 'database_cleaner'
-#   gem 'simplecov'
-#   gem 'flexmock'
-#   gem 'poltergeist'  # Headless Javascript parsing engine
-# end
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'simplecov'
+  gem 'flexmock'
+  gem 'poltergeist'  # Headless Javascript parsing engine
+end
 
 # branding / image uploading
 # gem 'rmagick', :require => 'RMagick'  # require needed for case-sensitivity in Linux
