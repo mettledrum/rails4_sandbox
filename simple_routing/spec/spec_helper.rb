@@ -39,4 +39,12 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # helper functions like log_in
+  config.include Helpers
+
+  # This will pick up all of the fixtures defined in spec/fixtures into your
+  # database and you'll be able to test with some sample data
+  # (eg. Countries, States, etc.)
+  config.global_fixtures = :all
 end

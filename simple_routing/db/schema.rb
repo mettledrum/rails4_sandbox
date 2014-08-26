@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20140814061038) do
   create_table "votes", force: true do |t|
     t.integer  "user_id"
     t.integer  "value"
-    t.integer  "item_type_id"
     t.integer  "item_id"
+    t.integer  "item_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
