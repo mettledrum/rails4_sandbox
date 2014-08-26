@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_user
   before_action :set_posting, except: [:index, :destroy]
+  skip_after_filter :set_last_url, :only => [:edit]
 
   def index
     @comments = Comment.all
@@ -29,7 +30,7 @@ class CommentsController < ApplicationController
     @comment.user_id = @user.id
 
     if @comment.save
-      redirect_to user_posting_comment_path(@user, @posting, @comment), notice: 'Comment was successfully created.'
+      redirect_to user_posting_path(@user, @posting), notice: 'Comment was successfully created.'
     else
       render action: 'new'
     end
@@ -37,7 +38,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to user_posting_comment_path(@user, @posting, @comment), notice: 'Comment was successfully updated.'
+      redirect_to last_url, notice: 'Comment was successfully updated.'
     else
       render action: 'edit'
     end
@@ -45,7 +46,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to user_comments_path(@user)
+    redirect_to last_url
   end
 
   private

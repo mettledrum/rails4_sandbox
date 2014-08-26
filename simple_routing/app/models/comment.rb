@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
              -> { order(:created_at) },
              foreign_key: :parent_id,
              class_name:  :Comment,
-             dependent:   :restrict_with_exception	
+             dependent:   :destroy	
 
 	include Votable
 

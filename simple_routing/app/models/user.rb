@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-	has_many :postings, dependent: :restrict_with_exception
-	has_many :comments, dependent: :restrict_with_exception
-  has_many :votes, dependent: :restrict_with_exception
+	has_many :postings, dependent: :destroy
+	has_many :comments, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
 	# attr_accessible :email, :password, :password_confirmation
   

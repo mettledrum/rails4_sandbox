@@ -21,8 +21,8 @@
 		by <%= @posting.user.name %> |
     <%= @posting.created_at.strftime("%d %b. %Y") %> | 
   	<!-- color-code score -->
-	  <span class="label label-<%= (@posting.vote_score || 0) >= 0 ? 'success' : 'danger' %>">
-	    <%= @posting.vote_score || 0 %>
+	  <span class="label label-<%= (@posting.vote_score) >= 0 ? 'success' : 'danger' %>">
+	    <%= @posting.vote_score %>
 	  </span>
 		<span class="pull-right">
 			<!-- display buttons for voting -->

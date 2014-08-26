@@ -7,7 +7,7 @@
     <% @postings.each do |posting| %>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <%= posting.title %>
+          <%= truncate(posting.title, length: 50) %>
           
           <% if current_user %>
             <span class="pull-right">
@@ -21,13 +21,13 @@
             </span>
           <% end %>
         </div>
-        <div class="panel-body"><%= posting.content %></div>
+        <div class="panel-body"><%= truncate(posting.content, length: 90) %></div>
         <div class="panel-footer">
           by <%= posting.user.name %> | 
           <%= posting.created_at.strftime("%d %b. %Y") %> | 
           <!-- color-code score -->
-          <span class="label label-<%= (posting.vote_score || 0) >= 0 ? 'success' : 'danger' %>">
-            <%= posting.vote_score || 0 %>
+          <span class="label label-<%= (posting.vote_score) >= 0 ? 'success' : 'danger' %>">
+            <%= posting.vote_score %>
           </span>
 
           <!-- voting displays -->

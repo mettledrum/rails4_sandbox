@@ -2,14 +2,17 @@ class PostingsController < ApplicationController
   before_action :set_posting, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :except => [:preview]
   skip_before_filter :ensure_user, :only => [:preview]
+  skip_after_filter :set_last_url, :only => [:edit]
+  skip_after_filter :set_last_delete_url, :only => [:show, :new, :edit]
 
   # preview the postings on the root
   def preview
-    @postings = Posting.all.first(3)
+    @postings = Posting.all.sort_by {|p| [p.created_at.to_date, p.vote_score]}.reverse.first(3)
   end
 
+  # sort by day and score within day
   def front    
-    @postings = Posting.all
+    @postings = Posting.all.sort_by {|p| [p.created_at.to_date, p.vote_score]}.reverse
   end
 
   # shows users' postings
@@ -43,7 +46,7 @@ class PostingsController < ApplicationController
 
   def update
     if @posting.update(posting_params)
-      redirect_to user_posting_path(@user, @posting), notice: 'Posting was successfully updated.'
+      redirect_to last_url, notice: 'Posting was successfully updated.'
     else
       render action: 'edit'
     end
@@ -51,7 +54,7 @@ class PostingsController < ApplicationController
 
   def destroy
     @posting.destroy
-    redirect_to user_postings_url(@user)
+    redirect_to last_delete_url
   end
 
   private

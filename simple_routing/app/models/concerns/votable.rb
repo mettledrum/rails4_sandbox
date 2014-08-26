@@ -14,6 +14,6 @@ module Votable
 
 	# pull all points of votes for votable model
 	def vote_score
-		votes.map(&:value).reduce(:+)
+		votes.map(&:value).reduce(:+) || 0
 	end
 end
