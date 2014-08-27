@@ -1,17 +1,21 @@
 class PostingsController < ApplicationController
   before_action :set_posting, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, :except => [:preview]
+  before_action :set_user, :except => [:preview, :front]
   skip_before_filter :ensure_user, :only => [:preview]
+
+  # redirection methods
   skip_after_filter :set_last_url, :only => [:edit]
   skip_after_filter :set_last_delete_url, :only => [:show, :new, :edit]
 
   # preview the postings on the root
   def preview
+    @user = current_user
     @postings = Posting.all.sort_by {|p| [p.created_at.to_date, p.vote_score]}.reverse.first(3)
   end
 
   # sort by day and score within day
-  def front    
+  def front
+    @user = current_user    
     @postings = Posting.all.sort_by {|p| [p.created_at.to_date, p.vote_score]}.reverse
   end
 
@@ -33,8 +37,6 @@ class PostingsController < ApplicationController
 
   def create
     @posting = Posting.new(posting_params)
-
-    # user can't control their ID
     @posting.user_id = @user.id
 
     if @posting.save
@@ -65,7 +67,7 @@ class PostingsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = current_user
+      @user = User.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
