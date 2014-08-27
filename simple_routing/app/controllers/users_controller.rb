@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :ensure_user, only: [:new, :create]
 
+  # redirection methods
+  skip_after_filter :set_last_url, :only => [:edit]
+  skip_after_filter :set_last_delete_url, :only => [:show, :new, :edit]
+
   def index
     @users = User.all
   end
@@ -37,10 +41,17 @@ class UsersController < ApplicationController
 
   # TODO: log_out, end session too
   def destroy
-    @user.destroy
-    reset_session
-    flash[:notice] = "User successfully destroyed."
-    redirect_to preview_path
+    # allows admin to destroy users w/o being logged out themselves
+    if @user.id == current_user.id
+      reset_session
+      @user.destroy
+      flash[:notice] = "You've successfully deleted your account."
+      redirect_to preview_path
+    else
+      @user.destroy
+      flash[:notice] = "User successfully destroyed."
+      redirect_to last_delete_url
+    end
   end
 
   private

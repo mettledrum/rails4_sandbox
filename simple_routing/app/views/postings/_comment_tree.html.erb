@@ -13,29 +13,29 @@
 		by <%= comment_hash[:comment].user.name %> | 
 		<%= comment_hash[:comment].created_at.strftime("%d %b. %Y") %> |
 		<!-- color-code score -->
-    <span class="label label-<%= (comment_hash[:comment].vote_score) >= 0 ? 'success' : 'danger' %>">
-      <%= comment_hash[:comment].vote_score %>
-    </span>
+		<span class="label label-<%= (comment_hash[:comment].vote_score) >= 0 ? 'success' : 'danger' %>">
+			<%= comment_hash[:comment].vote_score %>
+		</span>
 		<span class="pull-right">
-	    <%= link_to 'reply', new_user_posting_comment_path(@user, @posting, parent_id: comment_hash[:comment].id) %> |
+			<%= link_to 'reply', new_user_posting_comment_path(@user, @posting, parent_id: comment_hash[:comment].id) %> |
 
-	    <!-- you can edit and delete comment if it's yours || TODO: admin -->
-        <% if current_user.comments.include? comment_hash[:comment] %>
-        <%= link_to 'edit', edit_user_posting_comment_path(@user, @posting, comment_hash[:comment]) %> | 
-        <%= link_to 'delete', [@user, @posting, comment_hash[:comment]], method: :delete, data: { confirm: 'Are you sure?' } %> | 
-        <% end %> 
+			<!-- you can edit and delete comment if it's yours or admin -->
+				<% if current_user.comments.include?(comment_hash[:comment]) || current_user.admin %>
+				<%= link_to 'edit', edit_user_posting_comment_path(@user, @posting, comment_hash[:comment]) %> | 
+				<%= link_to 'delete', [@user, @posting, comment_hash[:comment]], method: :delete, data: { confirm: 'Are you sure?' } %> | 
+				<% end %> 
 
-      <!-- votable functions -->
-	    <% if !comment_hash[:comment].votes.map(&:user_id).include? current_user.id %>
-			  <%= link_to 'up', up_vote_path(name: 'comment', item_id: comment_hash[:comment].id), method: :post %> | 
-			  <%= link_to 'down', down_vote_path(name: 'comment', item_id: comment_hash[:comment].id), method: :post %>
+			<!-- votable functions -->
+			<% if !comment_hash[:comment].votes.map(&:user_id).include? current_user.id %>
+				<%= link_to 'up', up_vote_path(name: 'comment', item_id: comment_hash[:comment].id), method: :post %> | 
+				<%= link_to 'down', down_vote_path(name: 'comment', item_id: comment_hash[:comment].id), method: :post %>
 			<% else %>
-			  <% if comment_hash[:comment].votes(current_user).first.value > 0 %>
-			    <span class="glyphicon glyphicon-thumbs-up"></span>
-			  <% else %>
-			    <span class="glyphicon glyphicon-thumbs-down"></span>
-			  <% end %>
-			  <%= link_to 'x', vote_path(comment_hash[:comment].votes(current_user).first.id), method: :delete %>
+				<% if comment_hash[:comment].votes(current_user).first.value > 0 %>
+					<span class="glyphicon glyphicon-thumbs-up"></span>
+				<% else %>
+					<span class="glyphicon glyphicon-thumbs-down"></span>
+				<% end %>
+				<%= link_to 'x', vote_path(comment_hash[:comment].votes(current_user).first.id), method: :delete %>
 			<% end %>
 		</span>
 	</div>

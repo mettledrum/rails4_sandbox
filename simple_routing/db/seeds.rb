@@ -10,6 +10,7 @@ end
 # sample values for testing
 
 # users
+admin = User.create(name: 'Administrator', password: 'ad', email: 'ad', admin: true)
 andy = User.create(name: 'Andy', password: 'a', email: 'a')
 barry = User.create(name: 'Barry', password: 'b', email: 'b')
 chrissy = User.create(name: 'Chrissy', password: 'c', email: 'c')

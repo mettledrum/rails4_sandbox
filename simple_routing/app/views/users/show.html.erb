@@ -15,3 +15,4 @@
 <%= link_to 'Edit Account', edit_user_path(@user), class: 'btn btn-warning' %>
 <%= link_to 'View Postings', user_postings_path(@user), class: 'btn btn-info' %>
 <%= link_to 'View Comments', user_comments_path(@user), class: 'btn btn-info' %>
+<%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

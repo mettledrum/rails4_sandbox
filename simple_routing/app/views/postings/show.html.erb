@@ -4,8 +4,8 @@
     <span class="pull-right">
       <%= link_to 'reply', new_user_posting_comment_path(@user, @posting, parent_id: nil) %>
 
-      <!-- you can edit and delete posting if it's yours || TODO: admin -->
-      <% if current_user.postings.include? @posting %>
+      <!-- you can edit and delete posting if it's yours or admin -->
+      <% if current_user.postings.include?(@posting) || current_user.admin %>
        | <%= link_to 'edit', edit_user_posting_path(@user, @posting) %> | 
       <%= link_to 'delete', [@user, @posting], method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
