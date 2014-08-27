@@ -6,8 +6,10 @@
       <th>User</th>
       <th>Content</th>
       <th></th>
-      <th></th>
-      <th></th>
+      <% if current_user.admin || current_user.id == @user.id %>
+        <th></th>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -17,8 +19,10 @@
         <td><%= comment.user_id %></td>
         <td><%= comment.content %></td>
         <td><%= link_to 'Show', user_posting_comment_path(@user, comment.posting, comment) %></td>
-        <td><%= link_to 'Edit', edit_user_posting_comment_path(@user, comment.posting, comment) %></td>
-        <td><%= link_to 'Destroy', [@user, comment.posting, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.admin || current_user.id == @user.id %>
+          <td><%= link_to 'Edit', edit_user_posting_comment_path(@user, comment.posting, comment) %></td>
+          <td><%= link_to 'Destroy', [@user, comment.posting, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
 
 	private 
 
+  # place over protected endpoints' controller actions
+  def ensure_admin
+    unless current_user.admin
+      flash[:error] = "You're not an admin!"
+      redirect_to last_url
+    end
+  end
+
   # pull current ActiveRecord user from session
 	def current_user
 	  @current_user ||= User.find(session[:user_id]) if session[:user_id]

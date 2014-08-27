@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :ensure_user, only: [:new, :create]
 
+  before_filter :ensure_admin, only: [:index]
+
   # redirection methods
   skip_after_filter :set_last_url, :only => [:edit]
   skip_after_filter :set_last_delete_url, :only => [:show, :new, :edit]
