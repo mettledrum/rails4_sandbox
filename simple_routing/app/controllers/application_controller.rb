@@ -7,15 +7,25 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # non-admin can't go to user index
   before_filter :ensure_user
+  
+  before_filter :ensure_permission, only: [:edit, :new, :update, :destroy, :create]
 
   helper_method :current_user
 
 	private 
 
+  def ensure_permission
+    unless (current_user && current_user.admin) || params[:user_id] == current_user.id
+      flash[:error] = "You don't have permission!"
+      redirect_to last_url    
+    end
+  end
+
   # place over protected endpoints' controller actions
   def ensure_admin
-    unless current_user.admin
+    unless current_user && current_user.admin
       flash[:error] = "You're not an admin!"
       redirect_to last_url
     end
