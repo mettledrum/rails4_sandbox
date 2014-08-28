@@ -9,15 +9,13 @@ class ApplicationController < ActionController::Base
 
   # non-admin can't go to user index
   before_filter :ensure_user
-  
-  before_filter :ensure_permission, only: [:edit, :new, :update, :destroy, :create]
 
   helper_method :current_user
 
 	private 
 
   def ensure_permission
-    unless (current_user && current_user.admin) || params[:user_id] == current_user.id
+    unless current_user && current_user.admin || params[:user_id] == current_user.id.to_s
       flash[:error] = "You don't have permission!"
       redirect_to last_url    
     end

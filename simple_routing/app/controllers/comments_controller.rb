@@ -4,6 +4,9 @@ class CommentsController < ApplicationController
   before_action :set_posting, except: [:index, :destroy]
   skip_after_filter :set_last_url, :only => [:edit]
 
+  # can't make changes pretending you're another user
+  before_filter :ensure_permission, only: [:edit, :new]
+
   def index
     @comments = Comment.all
   end
@@ -14,7 +17,6 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
 
-    # user can't control comment parent ID or posting ID,
     # sent in by link_to 'reply'
     @comment.parent_id = params[:parent_id]
     @comment.posting_id = params[:posting_id]
@@ -25,8 +27,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-
-    # user can't control user ID
     @comment.user_id = @user.id
 
     if @comment.save
