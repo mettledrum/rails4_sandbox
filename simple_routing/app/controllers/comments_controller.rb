@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   skip_after_filter :set_last_url, :only => [:edit]
 
   # can't make changes pretending you're another user
-  before_filter :ensure_permission, only: [:edit, :new]
+  before_filter :ensure_permission, only: [:edit]
 
   def index
     @comments = Comment.all
@@ -27,7 +27,9 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    @comment.user_id = @user.id
+
+    # get user_id from session
+    @comment.user_id = current_user.id
 
     if @comment.save
       redirect_to user_posting_path(@user, @posting), notice: 'Comment was successfully created.'

@@ -8,7 +8,7 @@ class PostingsController < ApplicationController
   skip_after_filter :set_last_delete_url, :only => [:show, :new, :edit]
 
   # can't make changes pretending you're another user
-  before_filter :ensure_permission, only: [:edit, :new]
+  before_filter :ensure_permission, only: [:edit]
 
   # preview the postings on the root
   def preview
@@ -40,7 +40,9 @@ class PostingsController < ApplicationController
 
   def create
     @posting = Posting.new(posting_params)
-    @posting.user_id = @user.id
+
+    # get user_id from session
+    @posting.user_id = current_user.id
 
     if @posting.save
       redirect_to user_posting_path(@user, @posting), notice: 'Posting was successfully created.'
