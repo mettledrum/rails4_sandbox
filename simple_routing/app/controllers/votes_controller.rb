@@ -2,16 +2,6 @@ class VotesController < ApplicationController
   before_action :set_vote, only: [:destroy]
   before_action :set_user, only: [:up_vote, :down_vote]
 
-  def test
-    @users = User.all
-    # respond_to do |format|
-    #   format.json { render action: 'show', status: :created, location: @user }
-    # end
-    render json: @users
-  end
-
-
-  # TODO: make ajax
   def up_vote
     # :name is model name vote is attached to thru VariadicItem
     @vote = Vote.find_or_create_by(
@@ -29,7 +19,6 @@ class VotesController < ApplicationController
 
   end
 
-  # TODO: make ajax
   def down_vote
     # :name is model name vote is attached to thru VariadicItem
     @vote = Vote.find_or_create_by(
@@ -47,10 +36,12 @@ class VotesController < ApplicationController
     end
   end
 
-  # TODO: make ajax
-	def destroy
-		@vote.destroy
+def destroy
+	@vote.destroy
+  respond_to do |format|
+		format.json { head :no_content }
 	end
+end
 
 	private
     # Use callbacks to share common setup or constraints between actions.
