@@ -2,22 +2,31 @@ class VotesController < ApplicationController
   before_action :set_vote, only: [:destroy]
   before_action :set_user, only: [:up_vote, :down_vote]
 
+  def test
+    @users = User.all
+    # respond_to do |format|
+    #   format.json { render action: 'show', status: :created, location: @user }
+    # end
+    render json: @users
+  end
+
+
   # TODO: make ajax
   def up_vote
     # :name is model name vote is attached to thru VariadicItem
     @vote = Vote.find_or_create_by(
       user_id: @user.id, 
       item_id: params[:item_id], 
-      item_type_id: ItemType.find_by_name(params[:name]).id)
-
+      item_type_id: ItemType.find_by_name(params[:name]).id
+    )
     @vote.value = 1
 
-    if @vote.save
-      flash[:notice] = "Up-voted."
-    else
-      flash[:error] = "Up-vote not saved."
+    @vote.save
+
+    respond_to do |format|
+      format.json { render json: @vote }
     end
-    redirect_to last_url
+
   end
 
   # TODO: make ajax
@@ -26,23 +35,21 @@ class VotesController < ApplicationController
     @vote = Vote.find_or_create_by(
       user_id: @user.id, 
       item_id: params[:item_id], 
-      item_type_id: ItemType.find_by_name(params[:name]).id)
-
+      item_type_id: ItemType.find_by_name(params[:name]).id
+    )
     @vote.value = -1
 
-    if @vote.save
-      flash[:notice] = "Down-voted."
-    else
-      flash[:error] = "Down-vote not saved."
+    @vote.save
+
+    # TODO: add if error
+    respond_to do |format|
+      format.json { render json: @vote }
     end
-    redirect_to last_url 
   end
 
   # TODO: make ajax
 	def destroy
 		@vote.destroy
-    flash[:notice] = "Vote cancelled."
-    redirect_to last_url
 	end
 
 	private

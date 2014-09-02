@@ -1,0 +1,29 @@
+.panel.panel-warning
+  .panel-heading
+    %h3 Latest Postings
+  .panel-body
+    - @postings.each do |posting|
+      .panel.panel-default
+        .panel-heading
+          = truncate(posting.title, length: 50)
+          / don't show if in preview mode b/c there's no current_user
+          - if current_user
+            %span.pull-right
+              = link_to 'read', user_posting_path(@user, posting)
+              / you can edit and delete posting if it's yours or admin
+              - if current_user.postings.include?(posting) || current_user.admin
+                | #{link_to 'edit', edit_user_posting_path(@user, posting)}
+                | #{link_to 'delete', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' }}
+        .panel-body= truncate(posting.content, length: 100)
+        / posting-footer holds .data() about votes and postings' IDs
+        - post_data = { "data-posting-id" => posting.id }
+        - if current_user && posting.votes.map(&:user_id).include?(current_user.id)
+          - post_data["data-vote-id"] = posting.votes.where(user_id: current_user.id).first.id
+        .panel-footer.posting-info{post_data}
+          by #{posting.user.name}
+          | #{posting.created_at.strftime("%d %b. %Y")}
+          |
+          %span.score.label.label-primary
+            = posting.vote_score
+          %span.pull-right.voting
+.panel-footer
