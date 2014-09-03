@@ -59,6 +59,10 @@ group :development, :test do
   gem 'poltergeist'  # Headless Javascript parsing engine
 end
 
+# binds turbolinks to $(document).ready() to behave as you'd expect
+# helps load js where you want
+gem 'jquery-turbolinks'
+
 # branding / image uploading
 # gem 'rmagick', :require => 'RMagick'  # require needed for case-sensitivity in Linux
 
