@@ -12,8 +12,10 @@
               = link_to 'read', user_posting_path(@user, posting)
               / you can edit and delete posting if it's yours or admin
               - if current_user.postings.include?(posting) || current_user.admin
-                | #{link_to 'edit', edit_user_posting_path(@user, posting)}
-                | #{link_to 'delete', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' }}
+                |
+                = link_to 'edit', edit_user_posting_path(@user, posting)
+                |
+                = link_to 'delete', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' }
         .panel-body= truncate(posting.content, length: 100)
         / posting-footer holds .data() about votes and postings' IDs
         - post_data = { "data-posting-id" => posting.id }
