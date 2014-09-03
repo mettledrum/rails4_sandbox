@@ -1,0 +1,22 @@
+%h1
+  Postings by #{@user.name}
+%table
+  %thead
+    %tr
+      %th User ID
+      %th Title
+      %th Content
+      %th
+      - if current_user.admin || current_user.id == @user.id
+        %th
+        %th
+  %tbody
+    - @user.postings.each do |posting|
+      %tr
+        %td= posting.user_id
+        %td= posting.title
+        %td= posting.content
+        %td= link_to 'Show', [@user, posting]
+        - if current_user.admin || current_user.id == @user.id
+          %td= link_to 'Edit', edit_user_posting_path(@user, posting)
+          %td= link_to 'Destroy', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' }

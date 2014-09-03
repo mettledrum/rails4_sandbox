@@ -14,7 +14,7 @@
     %br/
     / recursive forest of postings and comments
     = render 'comment_forest'
-    / posting-footer holds .data() about votes and postings' IDs
+    / posting-info holds .data() about votes and postings' IDs
     - post_data = { "data-posting-id" => @posting.id }
     - if current_user && @posting.votes.map(&:user_id).include?(current_user.id)
       - post_data["data-vote-id"] = @posting.votes.where(user_id: current_user.id).first.id
