@@ -29,7 +29,7 @@
           by #{posting.user.name}
           | #{posting.created_at.strftime("%d %b. %Y")}
           |
-          %span.score.label.label-primary
+          %span.score
             = posting.vote_score
           %span.pull-right.voting
-.panel-footer
+  .panel-footer

@@ -35,8 +35,10 @@ cast_vote = (itemArea, up) ->
 
   # up or down?
   if up == true
+    voteVal = 1
     url = '/votes/up_vote'
   else
+    voteVal = -1
     url = '/votes/down_vote'
 
   $.ajax
@@ -54,14 +56,15 @@ cast_vote = (itemArea, up) ->
       itemInfo.children(".voting").empty()
       # add the delete vote link and thumbs up/down
       add_del_vote_link itemInfo.children(".voting"), up
+      # update the score/coloration
+      update_score $(itemInfo.children(".score")), voteVal
       # attach event handler
-      # console.log itemInfo.find(".delete-vote")
       itemInfo.find(".delete-vote").click (e) ->
         e.preventDefault()
         delete_vote $(this)
 
     error: ->
-      console.log "js voting error"
+      console.log "AJAX vote casting error"
   false
   
 delete_vote = (itemArea) ->
@@ -69,6 +72,7 @@ delete_vote = (itemArea) ->
   itemInfo = itemArea.parent().parent()
   itemData = itemInfo.data() 
   voteId = itemData['voteId']
+  voteVal = parseInt(itemData['voteVal']) * -1
 
   # ajax
   $.ajax
@@ -82,15 +86,17 @@ delete_vote = (itemArea) ->
       itemInfo.removeData('voteVal')
       itemInfo.children(".voting").empty()
       add_cast_vote_links itemInfo.children(".voting")
-      # console.log itemInfo.find(".no-vote")
+      update_score $(itemInfo.children(".score")), voteVal
       itemInfo.find(".no-vote").click (e) ->
         e.preventDefault()
         if $(this).hasClass("up")
           cast_vote $(this), true
         else
           cast_vote $(this), false
+      console.log $(itemInfo.children(".score")).html()
+
     error: ->
-      console.log "js vote deletion error"
+      console.log "AJAX vote deletion error"
   false
 
 add_del_vote_link = (vote_area, up) ->
@@ -106,6 +112,38 @@ add_cast_vote_links = (vote_area) ->
   vote_area.append " | "
   down_vote_link.clone().appendTo vote_area
 
+# lowers or raises score value/color codes label
+update_score = (score_elem, vote_value) ->
+  score_elem.html(parseInt(score_elem.html()) + vote_value)
+  color_code_score score_elem
+
+# changes the label coloration
+HIGH = 2
+MEDIUM = 1
+LOW = -1
+color_code_score = (score_elem) ->
+  # TODO: regex
+  score_elem.removeClass("label")
+  score_elem.removeClass("label-success")
+  score_elem.removeClass("label-primary")
+  score_elem.removeClass("label-default")
+  score_elem.removeClass("label-warning")
+  score_elem.removeClass("label-danger")
+
+  score_elem.addClass("label")
+  score = parseInt(score_elem.html())
+  if score >= HIGH
+    score_elem.addClass("label-success")
+  else if score < HIGH and score >= MEDIUM
+    score_elem.addClass("label-primary")
+  else if score < MEDIUM and score >= 0
+    score_elem.addClass("label-default")
+  else if score < 0 and score >= LOW
+    score_elem.addClass("label-warning")
+  else
+    score_elem.addClass("label-danger")
+
+
 $ ->
   # add links to postings/comments
   $.each $(".item-info"), (key, val) ->
@@ -117,6 +155,10 @@ $ ->
     else
       # console.log "no votes: ", val
       add_cast_vote_links vote_area
+
+  # color code scores
+  $.each $(".score"), (key, score_elem) ->
+    color_code_score $(score_elem)
 
   # add event handlers
   $(".no-vote").click (e) ->

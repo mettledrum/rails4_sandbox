@@ -11,7 +11,7 @@
         = link_to 'delete', [@user, @posting], method: :delete, data: { confirm: 'Are you sure?' }
   .panel-body
     = @posting.content
-    %br/
+    %p
     / recursive forest of postings and comments
     = render 'comment_forest'
 
@@ -27,6 +27,6 @@
     |
     = @posting.created_at.strftime("%d %b. %Y")
     |
-    %span.label.label-primary
+    %span.score
       = @posting.vote_score
     %span.pull-right.voting
