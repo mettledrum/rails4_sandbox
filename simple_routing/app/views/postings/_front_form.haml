@@ -17,11 +17,15 @@
                 |
                 = link_to 'delete', [@user, posting], method: :delete, data: { confirm: 'Are you sure?' }
         .panel-body= truncate(posting.content, length: 100)
-        / posting-info holds .data() about votes and postings' IDs
-        - post_data = { "data-posting-id" => posting.id }
+
+        / item-info holds .data() about votes and items
+        - item_data = { "data-item-id" => posting.id }
+        - item_data["data-name"] = "posting"
         - if current_user && posting.votes.map(&:user_id).include?(current_user.id)
-          - post_data["data-vote-id"] = posting.votes.where(user_id: current_user.id).first.id
-        .panel-footer.posting-info{post_data}
+          - item_data["data-vote-id"] = posting.votes.where(user_id: current_user.id).first.id
+          - item_data["data-vote-val"] = posting.votes.where(user_id: current_user.id).first.value
+
+        .panel-footer.item-info{ item_data }
           by #{posting.user.name}
           | #{posting.created_at.strftime("%d %b. %Y")}
           |
