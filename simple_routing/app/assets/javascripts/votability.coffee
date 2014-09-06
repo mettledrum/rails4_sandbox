@@ -118,9 +118,9 @@ update_score = (score_elem, vote_value) ->
   color_code_score score_elem
 
 # changes the label coloration
-HIGH = 2
-MEDIUM = 1
-LOW = -1
+HIGH = 10
+MEDIUM = 5
+LOW = -5
 color_code_score = (score_elem) ->
   # TODO: regex
   score_elem.removeClass("label")
@@ -171,5 +171,3 @@ $ ->
   $(".delete-vote").click (e) ->
     e.preventDefault()
     delete_vote $(this)
-
-# TODO: vote count updates

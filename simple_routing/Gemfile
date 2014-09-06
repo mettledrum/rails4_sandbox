@@ -22,7 +22,11 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# gem 'turbolinks'
+
+# binds turbolinks to $(document).ready() to behave as you'd expect
+# helps load js where you want
+# gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -58,10 +62,6 @@ group :development, :test do
   gem 'flexmock'
   gem 'poltergeist'  # Headless Javascript parsing engine
 end
-
-# binds turbolinks to $(document).ready() to behave as you'd expect
-# helps load js where you want
-gem 'jquery-turbolinks'
 
 # branding / image uploading
 # gem 'rmagick', :require => 'RMagick'  # require needed for case-sensitivity in Linux

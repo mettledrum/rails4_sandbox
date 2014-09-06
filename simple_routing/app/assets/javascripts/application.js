@@ -10,9 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// Took out the //= require_tree .
+// JS files are treated like concerns and included in views in which this is to be mixed.
+//
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap.min
-//= require turbolinks
-//= require_tree .
