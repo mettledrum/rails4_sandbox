@@ -26,7 +26,12 @@
       - item_data["data-vote-val"] = @posting.votes.where(user_id: current_user.id).first.value
 
   .panel-footer.item-info{ item_data }
-    by #{@posting.user.name}
+    - if @posting.user.image.file
+      = image_tag @posting.user.image_url(:thumb).to_s
+    - else
+      = image_tag "no_user_pic.png"
+    by 
+    = link_to_if current_user, @posting.user.name, @posting.user
     |
     = @posting.created_at.strftime("%d %b. %Y")
     |

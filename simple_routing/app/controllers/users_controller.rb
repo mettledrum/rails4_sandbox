@@ -8,6 +8,8 @@ class UsersController < ApplicationController
   skip_after_filter :set_last_url, :only => [:edit]
   skip_after_filter :set_last_delete_url, :only => [:show, :new, :edit]
 
+  # TODO: get validation errors back
+
   def index
     @users = User.all
   end
@@ -64,6 +66,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :image, :remote_image_url)
     end
 end

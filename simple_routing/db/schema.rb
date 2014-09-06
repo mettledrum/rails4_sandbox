@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827210452) do
+ActiveRecord::Schema.define(version: 20140906134448) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140827210452) do
     t.string   "password_salt"
     t.string   "password_hash"
     t.boolean  "admin"
+    t.string   "image"
   end
 
   create_table "votes", force: true do |t|

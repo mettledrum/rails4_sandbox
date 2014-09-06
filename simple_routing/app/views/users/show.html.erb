@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
 	<strong>Name:</strong>
 	<%= @user.name %>
@@ -10,7 +8,14 @@
 	<%= @user.email %>
 </p>
 
-<p>picture</p>
+<p>
+	<strong>Picture:</strong>
+	<% if @user.image.file %>
+		<%= image_tag @user.image_url(:profile).to_s %>
+	<% else %>
+		<%= image_tag "no_user_pic_profile.png" %>
+	<% end %>
+</p>
 
 <%= link_to 'View Postings', user_postings_path(@user), class: 'btn btn-info' %>
 <%= link_to 'View Comments', user_comments_path(@user), class: 'btn btn-info' %>

@@ -14,7 +14,12 @@
     - item_data["data-vote-val"] = comment_hash[:comment].votes.where(user_id: current_user.id).first.value
 
   .panel-footer.item-info{ item_data }
-    by #{comment_hash[:comment].user.name}
+    - if comment_hash[:comment].user.image.file
+      = image_tag comment_hash[:comment].user.image_url(:thumb).to_s
+    - else
+      = image_tag "no_user_pic.png"
+    by 
+    = link_to_if current_user, comment_hash[:comment].user.name, comment_hash[:comment].user
     |
     = comment_hash[:comment].created_at.strftime("%d %b. %Y")
     |

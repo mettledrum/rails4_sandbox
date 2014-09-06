@@ -64,7 +64,10 @@ group :development, :test do
 end
 
 # branding / image uploading
-# gem 'rmagick', :require => 'RMagick'  # require needed for case-sensitivity in Linux
+gem 'rmagick', :require => 'RMagick'  # require needed for case-sensitivity in Linux
+
+# file uploader for pics
+gem 'carrierwave'
 
 # fake seed data
 gem 'faker'

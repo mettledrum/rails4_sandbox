@@ -10,6 +10,8 @@ class PostingsController < ApplicationController
   # can't make changes pretending you're another user
   before_filter :ensure_permission, only: [:edit]
 
+  # TODO: fix last_delete_url
+
   # preview the postings on the root
   def preview
     @user = current_user

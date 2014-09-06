@@ -100,6 +100,7 @@ delete_vote = (itemArea) ->
   false
 
 add_del_vote_link = (vote_area, up) ->
+  vote_area.append '&nbsp;&nbsp;'
   if up
     yes_arrow.clone().appendTo vote_area
   else
@@ -107,7 +108,7 @@ add_del_vote_link = (vote_area, up) ->
   del_vote_link.clone().appendTo vote_area
 
 add_cast_vote_links = (vote_area) ->
-  vote_area.append '&nbsp;'
+  vote_area.append '&nbsp;&nbsp;'
   up_vote_link.clone().appendTo vote_area
   vote_area.append " | "
   down_vote_link.clone().appendTo vote_area

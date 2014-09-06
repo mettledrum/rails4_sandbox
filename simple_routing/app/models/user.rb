@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
 
 	# attr_accessible :email, :password, :password_confirmation
+
+  # TODO: imageable concern
+  # model must have image attribute
+  mount_uploader :image, ImageUploader
   
   attr_accessor :password
   before_save :encrypt_password
